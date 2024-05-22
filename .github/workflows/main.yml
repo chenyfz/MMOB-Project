@@ -57,13 +57,12 @@ jobs:
           name: Build
           path: './unity-webgl'
       # web front-end
-      - name: Build front-end
-        run: pnpm run build
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Build front-end
+        run: pnpm run build
       - name: Install pnpm
         run: npm install -g pnpm@8
       - name: Install dependencies
