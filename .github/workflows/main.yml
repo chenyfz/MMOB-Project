@@ -61,12 +61,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Build front-end
-        run: pnpm run build
       - name: Install pnpm
         run: npm install -g pnpm@8
       - name: Install dependencies
         run: pnpm install
+      - name: Build
+        run: pnpm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
