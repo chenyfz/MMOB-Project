@@ -49,16 +49,17 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: WebGL
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Build
           projectPath: './unity-src'
           buildsPath: './unity-webgl'
           # buildMethod (if customization needed)
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Build
+          path: './unity-webgl'
+      # web front-end
       - name: Build front-end
         run: pnpm run build
 
-      # web front-end
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
