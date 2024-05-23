@@ -33,29 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # unity build (webGL)
-#      - uses: game-ci/unity-test-runner@v4
-#        env:
-#          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-#          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-#          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-#        with:
-#          projectPath: './unity-src'
-#          githubToken: ${{ secrets.GITHUB_TOKEN }}
-      - uses: game-ci/unity-builder@v4
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
-        with:
-          targetPlatform: WebGL
-          projectPath: ./unity-src
-          buildsPath: ./dist/unity-webgl
-          # buildMethod (if customization needed)
-#      - uses: actions/upload-artifact@v3
-#        with:
-#          name: Build
-#          path: ./unity-webgl
+
       # web front-end
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -67,12 +45,23 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm run build
+
+      # unity build
+      - uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: WebGL
+          projectPath: ./unity-src
+          buildsPath: ./dist/unity-webgl
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload dist repository
           path: ./dist
       - name: Deploy to GitHub Pages
         id: deployment
