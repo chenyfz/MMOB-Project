@@ -7,7 +7,7 @@ GitHub Page: https://chenyfz.github.io/MMOB-Project/
 2. Install dependencies by command `pnpm install`
 
 ### Test locally
-1. To test locally, you have to manually build the project and put the output in `this-dir/unity-webgl`. This folder is ignored by git.
+1. To test locally, you have to manually build the project and put the output in `./public/unity-webgl`. This folder is ignored by git.
 2. To run a dev server locally, use `pnpm dev`, follow the instructions in terminal.
 
 ### Deploy
@@ -16,7 +16,7 @@ Currently, the demo is hosted on GitHub Page, some other works needs to be done 
 **All changes in Main branch will trigger deploy, the CI pipeline will cost about 10 minutes (unity compile in GitHub Action takes a lot of time)**
 You can track progress here: https://github.com/chenyfz/MMOB-Project/actions
 
-Since you don't have to upload the `unity-webgl` folder and the compilation is done in linux environment,
+Since you don't have to upload the `./public/unity-webgl` folder and the compilation is done in linux environment,
 The output files may not be identical to the local windows compiled version.
 
 If the version on GitHub Page goes wrong, looks for Yangfan D:, it is probably something wrong with GitHub Action.
