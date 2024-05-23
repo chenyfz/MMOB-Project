@@ -45,6 +45,9 @@ jobs:
           projectPath: './unity-src'
           buildsPath: './'
 
+      - name: Create /public/unity-webgl
+        run: sudo mkdir -p ./public/unity-webgl
+
       - name: Move file
         run: sudo mv ./WebGL/* ./public
 
