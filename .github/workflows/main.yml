@@ -46,7 +46,7 @@ jobs:
           buildsPath: './'
 
       - name: Move file
-        run: mv ./WebGL/* ./public
+        run: sudo mv ./WebGL/* ./public
 
       # web front-end
       - name: Set up Node
