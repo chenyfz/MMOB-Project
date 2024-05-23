@@ -2,11 +2,17 @@
 import UnityWebgl from 'unity-webgl'
 import VueUnity from 'unity-webgl/vue'
 
+import loaderUrl from '/unity-webgl/Build/unity-webgl.loader.js?url'
+import dataUrl from '/unity-webgl/Build/unity-webgl.data.br?url'
+import frameworkUrl from '/unity-webgl/Build/unity-webgl.framework.js.br?url'
+import codeUrl from '/unity-webgl/Build/unity-webgl.wasm.br?url'
+
 const unityContext = new UnityWebgl({
-  loaderUrl: '/unity-webgl/Build/unity-webgl.loader.js',
-  dataUrl: '/unity-webgl/Build/unity-webgl.data.br',
-  frameworkUrl: '/unity-webgl/Build/unity-webgl.framework.js.br',
-  codeUrl: '/unity-webgl/Build/unity-webgl.wasm.br',
+  loaderUrl,
+  dataUrl,
+  frameworkUrl,
+  codeUrl,
+  productVersion: '1.0'
 })
 </script>
 
