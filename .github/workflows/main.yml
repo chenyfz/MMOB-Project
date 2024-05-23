@@ -49,13 +49,13 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: WebGL
-          projectPath: './unity-src'
-          buildsPath: './unity-webgl'
+          projectPath: ./unity-src
+          buildsPath: ./unity-webgl
           # buildMethod (if customization needed)
-      - uses: actions/upload-artifact@v3
-        with:
-          name: Build
-          path: './unity-webgl'
+#      - uses: actions/upload-artifact@v3
+#        with:
+#          name: Build
+#          path: ./unity-webgl
       # web front-end
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -73,7 +73,9 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist repository
-          path: './dist'
+          path: |
+            ./dist
+            ./unity-webgl
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
