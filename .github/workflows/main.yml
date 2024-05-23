@@ -58,8 +58,8 @@ jobs:
           buildsPath: './dist/unity-webgl'
 
       # don't know where these 2 WebGL folders come from...
-      - name: Rename file
-        run: mv ./dist/unity-webgl/WebGL/WebGL/* ./dist/unity-webgl/
+      - name: Move file
+        run: sudo mv ./dist/unity-webgl/WebGL/WebGL/* ./dist/unity-webgl/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
