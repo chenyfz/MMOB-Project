@@ -58,8 +58,8 @@ jobs:
           projectPath: './unity-src'
           buildsPath: './dist'
 
-      - name: Move file
-        run: sudo mv ./dist/unity-webgl/* ./dist/
+#      - name: Move file
+#        run: sudo mv ./dist/unity-webgl/* ./dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
