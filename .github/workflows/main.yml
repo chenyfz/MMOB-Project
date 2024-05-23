@@ -54,12 +54,12 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: WebGL
+          buildName: 'unity-webgl'
           projectPath: './unity-src'
-          buildsPath: './dist/unity-webgl'
+          buildsPath: './dist'
 
-      # don't know where these 2 WebGL folders come from...
       - name: Move file
-        run: sudo mv ./dist/unity-webgl/WebGL/WebGL/* ./dist/unity-webgl/
+        run: sudo mv ./dist/unity-webgl/* ./dist/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

@@ -6,19 +6,19 @@
 
 
 ### Todo list
-- [ ] initialize unity project
-- [ ] test communication between web and unity
+- [x] Initialize unity project
+- [ ] Test communication between web and unity
   - [ ] unity -> web
   - [ ] web -> unity
-- [ ] use command line to compile unity project (for local preview)
-- [ ] backend
+- [ ] Use command line to compile unity project (for local preview)
+- [ ] Backend
   - [ ] test api
   - [ ] test database
   - [ ] database backup mechanism
 - [ ] GitHub Action
-  - [ ] compile and deploy to a GitHub page
-  - [ ] use GitHub Action to compile unity
-  - [ ] use docker to combine unity, front-end, backend and database.
-- [ ] deploy to UU student server
-  - [ ] manually deploy
-  - [ ] update auto trigger deploy
+  - [x] compile and deploy to a GitHub page
+  - [x] use GitHub Action to compile unity
+  - [ ] Use docker to combine unity, front-end, backend and database.
+- [ ] Deploy to UU student server
+  - [ ] Manually deploy
+  - [ ] Update auto trigger deploy
