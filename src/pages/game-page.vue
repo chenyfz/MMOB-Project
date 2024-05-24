@@ -3,6 +3,7 @@ import UnityCanvas from '../components/unity-canvas.vue'
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
 
+const toIntroPage = () => stageStore.stage = Stage.INTRO
 const toSurveyPage = () => stageStore.stage = Stage.SURVEY
 </script>
 
@@ -10,7 +11,13 @@ const toSurveyPage = () => stageStore.stage = Stage.SURVEY
   <div class="game-page">
     <unity-canvas />
     <button
-      class="test-button"
+      class="test-button left"
+      @click="toIntroPage"
+    >
+      test button, to survey page
+    </button>
+    <button
+      class="test-button right"
       @click="toSurveyPage"
     >
       test button, to survey page
@@ -29,5 +36,10 @@ const toSurveyPage = () => stageStore.stage = Stage.SURVEY
 .test-button
   position absolute
   bottom 12px
+
+.left
+  left 8px
+
+.right
   right 8px
 </style>
