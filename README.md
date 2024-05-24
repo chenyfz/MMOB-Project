@@ -28,18 +28,18 @@ If it is not up-to-date in your phone, try to use private mode of your browser (
 
 ### Todo list
 - [x] Initialize unity project
-- [ ] Test communication between web and unity
-  - [ ] unity -> web
-  - [ ] web -> unity
-- [ ] Use command line to compile unity project (for local preview)
+- [x] Test communication between web and unity
+  - [x] unity -> web
+  - [x] web -> unity
+- [x] Web page basic framework
 - [ ] Backend
   - [ ] test api
   - [ ] test database
   - [ ] database backup mechanism
-- [ ] GitHub Action
+- [x] GitHub Action
   - [x] compile and deploy to a GitHub page
   - [x] use GitHub Action to compile unity
-  - [ ] Use docker to combine unity, front-end, backend and database.
 - [ ] Deploy to UU student server
+  - [ ] Use docker to combine unity, front-end, backend and database.
   - [ ] Manually deploy
   - [ ] Update auto trigger deploy

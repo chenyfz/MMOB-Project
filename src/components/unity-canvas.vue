@@ -14,6 +14,12 @@ const unityContext = new UnityWebgl({
   codeUrl,
   productVersion: '1.0'
 })
+
+unityContext.on('mounted', () => {
+  setTimeout(() => {
+    unityContext.send('Cube', 'JSToUnityTest')
+  }, 5000)
+})
 </script>
 
 <template>
