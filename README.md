@@ -4,27 +4,27 @@ GitHub Page: https://chenyfz.github.io/MMOB-Project/
 
 ### Preparation
 1. Install nodejs (> v20) and pnpm (https://pnpm.io/)
-2. Install dependencies by command `pnpm install`
+2. Install dependencies: `pnpm install`
 
 ### Test locally
-note: the point 2 currently do not work as expected due to this issue: https://github.com/vitejs/vite/issues/16648
+note: the point 2 is added due to this issue: https://github.com/vitejs/vite/issues/16648
 
-1. To test locally, you have to manually build the project and put the output in `./public/unity-webgl`. The file names all start with "unity-webgl" (e.g., `unity-webgl.data`) This folder is ignored by git.
-2. use `pnpm test` to preview and test the game part (port: 4173, reload needed to update).
-3. use `pnpm dev` to test the rest of the webpage.
+1. To test locally, you have to manually build the project and put the output in `./public/unity-webgl`. You may need to create this folder for the first time because it is ignored by git. The file names should all start with "unity-webgl" (e.g., `unity-webgl.data`).
+2. use `pnpm test` to preview and test the game part (port: 4173, browser reload needed to update).
+3. use `pnpm dev` to test the rest of the webpage (HMR).
 
 ### Deploy
-Currently, the demo is hosted on GitHub Page, some other works needs to be done to deploy it on our own server.
+Currently, the demo is hosted on GitHub Pages, some other works needs to be done to deploy it on our own server.
 
-**All changes in Main branch will trigger deploy, the CI pipeline will cost about 10 minutes (unity compile in GitHub Action takes a lot of time)**
+**All changes in main branch will trigger deploy. The CI pipeline will cost about 10 minutes (mainly compiling unity...).**
 You can track progress here: https://github.com/chenyfz/MMOB-Project/actions
 
-You don't have to upload the `./public/unity-webgl` folder, GitHub Action will do the compile work.
-Since the compilation is done in linux environment, the output files may not be identical to the local windows compiled version.
+The `./public/unity-webgl` folder should not be uploaded, GitHub Action will do the compile work.
+Since the compilation is done in a linux environment, the output files may not be identical to the local windows compiled version.
 
-If the version on GitHub Page goes wrong, looks for Yangfan D:, it is probably something wrong with GitHub Action.
+If the GitHub Page goes wrong, it is probably something wrong with GitHub Action.
 
-If it is not up-to-date in your phone, try to use private mode of your browser (so that there is no cache)
+If the GitHub Page is not up-to-date in your phone, try to use private mode of your browser (so that there is no cache)
 
 ### Todo list
 - [x] Initialize unity project
