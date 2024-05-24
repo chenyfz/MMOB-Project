@@ -11,7 +11,7 @@ note: the point 2 currently do not work as expected due to this issue: https://g
 
 1. To test locally, you have to manually build the project and put the output in `./public/unity-webgl`. The file names all start with "unity-webgl" (e.g., `unity-webgl.data`) This folder is ignored by git.
 2. ~~To run a dev server locally, use `pnpm dev`, follow the instructions in terminal.~~
-3. use `pnpm build` and start a http-server at `dist` dir. (either use webstorm or npm http-server lib should be fine)
+3. use `pnpm build && pnpm preview` to preview and test the web page.
 
 ### Deploy
 Currently, the demo is hosted on GitHub Page, some other works needs to be done to deploy it on our own server.

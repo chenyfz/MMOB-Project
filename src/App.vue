@@ -1,11 +1,9 @@
-<script setup>
-import UnityCanvas from './components/unity-canvas.vue'
+<script setup lang="ts">
+import IntroPage from './pages/intro-page.vue'
 </script>
 
 <template>
-  <div>
-    <unity-canvas />
-  </div>
+  <intro-page />
 </template>
 
 <style scoped>

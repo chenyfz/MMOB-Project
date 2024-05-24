@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import UnityWebgl from 'unity-webgl'
 import VueUnity from 'unity-webgl/vue'
 
