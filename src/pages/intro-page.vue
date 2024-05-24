@@ -3,9 +3,9 @@
 </script>
 
 <template>
-  <div>Game page</div>
+  <div>introduction</div>
 </template>
 
 <style scoped>
 
-</style> 
+</style>
