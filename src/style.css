@@ -9,3 +9,7 @@ a {
   font-weight: 500;
   text-decoration: inherit;
 }
+
+html, body {
+  margin: 0;
+}

@@ -10,8 +10,8 @@ GitHub Page: https://chenyfz.github.io/MMOB-Project/
 note: the point 2 currently do not work as expected due to this issue: https://github.com/vitejs/vite/issues/16648
 
 1. To test locally, you have to manually build the project and put the output in `./public/unity-webgl`. The file names all start with "unity-webgl" (e.g., `unity-webgl.data`) This folder is ignored by git.
-2. ~~To run a dev server locally, use `pnpm dev`, follow the instructions in terminal.~~
-3. use `pnpm build && pnpm preview` to preview and test the web page.
+2. use `pnpm test` to preview and test the game part (port: 4173, reload needed to update).
+3. use `pnpm dev` to test the rest of the webpage.
 
 ### Deploy
 Currently, the demo is hosted on GitHub Page, some other works needs to be done to deploy it on our own server.
