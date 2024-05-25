@@ -1,5 +1,5 @@
 ﻿mergeInto(LibraryManager.library, {
-  Test: function () {
-    window.jsbridge.test()
-  }
+    Test: function () {
+        window.jsbridge.test()
+    }
 });
