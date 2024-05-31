@@ -6,7 +6,7 @@ import GamePage from './pages/game-page.vue'
 import SurveyPage from './pages/survey-page.vue'
 
 </script>
-
+npm
 <template>
   <div class="page-container">
     <intro-page v-if="stageStore.stage === Stage.INTRO" />
