@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
+import {writeParticipantData} from '../api'
+import {ref} from 'vue'
+import {ParticipantData} from '../types/participant-data.ts'
 
-const onSubmitForm = () => {
-  // todo submit
+const resp = ref<Partial<ParticipantData>>({})
 
-  stageStore.stage = Stage.GAME
+const onSubmitForm = async () => {
+  // stageStore.stage = Stage.GAME
+  stageStore.stage = Stage.INTRO
+
+  resp.value = await writeParticipantData({
+    name: 'test from web'
+  })
 }
 </script>
 
 <template>
+  <p>{{ resp }}</p>
   <h3>👋Hi, Thanks for join our study!</h3>
   <p>First, we would need your consent for this study: this study is about ...</p>
   <p>
