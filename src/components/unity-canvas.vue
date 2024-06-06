@@ -1,25 +1,25 @@
 <script setup lang="ts">
-// import UnityWebgl from 'unity-webgl'
-// import VueUnity from 'unity-webgl/vue'
-//
-// import loaderUrl from '/unity-webgl/Build/unity-webgl.loader.js?url'
-// import dataUrl from '/unity-webgl/Build/unity-webgl.data?url'
-// import frameworkUrl from '/unity-webgl/Build/unity-webgl.framework.js?url'
-// import codeUrl from '/unity-webgl/Build/unity-webgl.wasm?url'
-//
-// const unityContext = new UnityWebgl({
-//   loaderUrl,
-//   dataUrl,
-//   frameworkUrl,
-//   codeUrl,
-//   productVersion: '1.0'
-// })
-//
-// unityContext.on('mounted', () => {
-//   setTimeout(() => {
-//     unityContext.send('Cube', 'JSToUnityTest')
-//   }, 5000)
-// })
+import UnityWebgl from 'unity-webgl'
+import VueUnity from 'unity-webgl/vue'
+
+import loaderUrl from '/unity-webgl/Build/unity-webgl.loader.js?url'
+import dataUrl from '/unity-webgl/Build/unity-webgl.data?url'
+import frameworkUrl from '/unity-webgl/Build/unity-webgl.framework.js?url'
+import codeUrl from '/unity-webgl/Build/unity-webgl.wasm?url'
+
+const unityContext = new UnityWebgl({
+  loaderUrl,
+  dataUrl,
+  frameworkUrl,
+  codeUrl,
+  productVersion: '1.0'
+})
+
+unityContext.on('mounted', () => {
+  setTimeout(() => {
+    unityContext.send('Cube', 'JSToUnityTest')
+  }, 5000)
+})
 </script>
 
 <template>
