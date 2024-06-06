@@ -14,7 +14,7 @@ const toSurveyPage = () => stageStore.stage = Stage.SURVEY
       class="test-button left"
       @click="toIntroPage"
     >
-      test button, to survey page
+      test button, to intro page
     </button>
     <button
       class="test-button right"

@@ -7,10 +7,11 @@ import {ParticipantData} from '../types/participant-data.ts'
 
 const resp = ref<Partial<ParticipantData>>({})
 
-const onSubmitForm = async () => {
-  // stageStore.stage = Stage.GAME
-  stageStore.stage = Stage.INTRO
+const onSubmitForm = () => {
+  stageStore.stage = Stage.GAME
+}
 
+const onTestServer = async () => {
   resp.value = await writeParticipantData({
     name: 'test from web'
   })
@@ -33,6 +34,7 @@ const onSubmitForm = async () => {
   <label for="consent-checkbox">I agree to be part of this study.</label>
   
   <button @click="onSubmitForm">continue</button>
+  <button @click="onTestServer">test server</button>
 </template>
 
 <style scoped>
