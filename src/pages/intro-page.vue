@@ -30,10 +30,20 @@ const onTestServer = async () => {
   <label for="name-input">How should we call you?</label>
   <input id="name-input" type="text">
 
+  <br>
+  <br>
+
   <input id="consent-checkbox" type="checkbox">
   <label for="consent-checkbox">I agree to be part of this study.</label>
-  
+
+  <br>
+  <br>
+
   <button @click="onSubmitForm">continue</button>
+
+  <br>
+  <br>
+
   <button @click="onTestServer">test server</button>
 </template>
 
