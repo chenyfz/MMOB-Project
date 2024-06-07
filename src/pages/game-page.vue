@@ -31,7 +31,6 @@ const toSurveyPage = () => stageStore.stage = Stage.SURVEY
   display flex
   align-items center
   justify-content center
-  min-height 100vh
 
 .test-button
   position absolute

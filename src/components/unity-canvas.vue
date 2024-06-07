@@ -6,6 +6,7 @@ import loaderUrl from '/unity-webgl/Build/unity-webgl.loader.js?url'
 import dataUrl from '/unity-webgl/Build/unity-webgl.data?url'
 import frameworkUrl from '/unity-webgl/Build/unity-webgl.framework.js?url'
 import codeUrl from '/unity-webgl/Build/unity-webgl.wasm?url'
+import {ref} from 'vue'
 
 const unityContext = new UnityWebgl({
   loaderUrl,
@@ -20,12 +21,22 @@ unityContext.on('mounted', () => {
     unityContext.send('Cube', 'JSToUnityTest')
   }, 5000)
 })
+
+const canvasWidth = ref(window.innerWidth)
+const canvasHeight = canvasWidth.value / 9 * 16
 </script>
 
 <template>
-  <vue-unity :unity="unityContext" width="400" height="750" />
+  <vue-unity
+    class="unity-canvas"
+    :unity="unityContext"
+    :width="canvasWidth"
+    :height="canvasHeight"
+  />
 </template>
 
-<style scoped>
-
+<style scoped lang="stylus">
+.unity-canvas
+  max-width 600px
+  max-height 1067px
 </style>
