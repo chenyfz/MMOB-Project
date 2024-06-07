@@ -4,6 +4,6 @@ export async function getDeviceMotionPermission() {
         const res = await DeviceOrientationEvent.requestPermission()
         return res === 'granted'
     } else {
-        return false
+        return true
     }
 }
