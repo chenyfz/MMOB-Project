@@ -21,13 +21,15 @@ public class GameMaster : MonoBehaviour
     public GameObject topLeft;
     public GameObject bottomRight;
 
+    public GameObject background;
+
     public int Score { get; private set; }
     public GameState GameState { get; private set; }
     private bool hasInitialized = false;
     private Vector3 playerInitialPosition;
     public void PlaySFX(string path)
     {
-        AudioClip audioClip = Resources.Load<AudioClip>("Sound/" + path);
+        AudioClip audioClip = Resources.Load<AudioClip>("SFX/" + path);
         audioSFXSource.PlayOneShot(audioClip);
     }
 
@@ -55,10 +57,9 @@ public class GameMaster : MonoBehaviour
 
     public void Reset()
     {
-        //Score = 0;
-        //OnGameStateChange(GameState.Menu);
         player.transform.position = playerInitialPosition;
         cam.transform.position = new Vector3(0, 0, -10);
+        background.GetComponent<Background>().Reset();
     }
 
     public void OnGameStateChange(GameState gameState)

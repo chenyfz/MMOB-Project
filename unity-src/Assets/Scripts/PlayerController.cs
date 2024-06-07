@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
+        GameMaster.Instance.PlaySFX("jump");
         rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
     }
 
