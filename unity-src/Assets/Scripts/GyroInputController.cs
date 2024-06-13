@@ -5,6 +5,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
+public class User
+{
+    public int Id;
+    public string Name;
+
+    public string SaveToJsonString()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
 public class GyroInputController : MonoBehaviour
 {
     private InputDevice virtualGamepad;
@@ -17,6 +28,13 @@ public class GyroInputController : MonoBehaviour
 
     void Start()
     {
+        var user = new User
+        {
+            Id = 2,
+            Name = "test"
+        };
+        Debug.Log(JsBridgeHelper.GetGameVersion());
+        JsBridgeHelper.ReportData(user.SaveToJsonString());
 #if UNITY_WEBGL && !UNITY_EDITOR
         virtualGamepad = InputSystem.AddDevice<Gamepad>();
         StartListeningGyro();
