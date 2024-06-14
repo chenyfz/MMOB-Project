@@ -4,18 +4,12 @@ import {Stage} from '../types/stage-type.ts'
 import {writeParticipantData} from '../api'
 import {ref} from 'vue'
 import {ParticipantData} from '../types/participant-data.ts'
-import {getDeviceMotionPermission} from './device-motion-permission'
-import Consent from '../components/consent.vue'
+import ConsentText from '../components/consent-text.vue'
 
 const resp = ref<Partial<ParticipantData>>({})
 
 const onGiveConsent = async () => {
-  const action = () => stageStore.stage = Stage.GAME
-  if (await getDeviceMotionPermission()) {
-    action()
-  } else {
-    console.error('no device orientation permission')
-  }
+  stageStore.stage = Stage.PRE_SURVEY
 }
 
 const onTestServer = async () => {
@@ -27,7 +21,7 @@ const onTestServer = async () => {
 
 <template>
   <div class="intro-page">
-    <consent />
+    <consent-text />
     <v-btn
       variant="flat"
       color="primary"

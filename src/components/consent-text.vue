@@ -60,7 +60,7 @@
     <a href="mailto:j.punt@students.uu.nl">j.punt@students.uu.nl</a>
   </p>
 
-  <p>
+  <p class="last-p">
     If, after reading this information letter, you decide to take part in the study, please press the "Give consent" button to continue. Otherwise, press the "Quit" button.
   </p>
 </template>
@@ -73,5 +73,10 @@ p
 .title
   margin-top: 16px
   font-weight bold
-  text-decoration: underline;
+  text-decoration: underline
+
+.last-p
+  border-top: 1px solid
+  margin-top: 12px
+  padding-top: 12px
 </style>

@@ -5,9 +5,9 @@ import {gameVersion} from './store/game-version-store.ts'
 
 // Vuetify
 import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+import { createVuetify } from 'vuetify'
 
 const vuetify = createVuetify({
     components,

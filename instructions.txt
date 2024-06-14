@@ -22,3 +22,29 @@ __**Are there questions, comments or concerns?:**__
 Contact your contact person or send an email to j.punt@students.uu.nl
 
 If, after reading this information letter, you decide to take part in the study, please press the "Give constent" button to continue. Otherwise, press the "Quit" button.
+
+
+# Player Character
+You will play as this robot --> <Image1>
+The robot will be jumping automatically and continously.
+
+# Game goal
+Ascend to the finish platform <image2> by controling and guiding the robot to jump across different types of platforms as efficiently and fast as possible. Try not to fall down off the screen to minimize the number of "deaths".
+
+# Controls
+Tilt your mobile phone to the left or right (over its y-axis or z-axis), to move the robot in the desired direction.
+
+# Platforms
+Normal <image3>; Static platform on which you can jump endlessly.
+Breakable <image4>; Static platform on which you can only jump once before it disappears.
+Movable <image5>; Platform that moves horizontally and on which you can jump endlessly.
+
+# Game versions
+• Control version; Without additional visual feedback on the tilt degree.
+• Balance bar; On top of the screen, a balance bar will be visualized to indicate the tilt degree of your mobile phone in real-time. <image6>
+• Power bars; Two power bars are visualized on the robot. The left bar (fill colour: red) indicates the level of tilt degree to the left, while the right bar (fill colour: blue) indicates the level of tilt degree to the right. <image7: Tilt a lot to the left.> <image8: Tilt slightly to the right.>
+
+# Additional features
+• Screen wrap; If you move the robot out of the screen on the left or right edge, the robot gets teleported to the other side of the screen.
+• Difficulty; The game is divided into seemingly transisioning stages, where each stage gradually increases the difficulty to add an extra challenge to the gameplay.
+• Infinite lives; When you die by falling down off the screen, you will get respawned at start of section you died in.
