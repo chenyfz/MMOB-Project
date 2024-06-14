@@ -6,7 +6,6 @@ import {GameVersion} from '../types/game-version.ts'
 import {ref} from 'vue'
 import {gameVersion, setGameVersion} from '../store/game-version-store.ts'
 
-const toIntroPage = () => stageStore.stage = Stage.INTRO
 const toSurveyPage = () => stageStore.stage = Stage.SURVEY
 
 // todo delete for test
@@ -25,18 +24,13 @@ const toNextGameVersion = () => {
   <div class="game-page">
     <unity-canvas :key="gameVersion" />
     <button
-      class="test-button left"
-      @click="toIntroPage"
-    >
-      test: to intro page
-    </button>
-    <button
       class="test-button right"
       @click="toSurveyPage"
     >
       test: to survey page
     </button>
     <button
+      class="test-button left"
       @click="toNextGameVersion"
     >
       test: next game version
@@ -53,7 +47,7 @@ const toNextGameVersion = () => {
 
 .test-button
   position absolute
-  bottom 12px
+  top 12px
 
 .left
   left 8px
