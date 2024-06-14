@@ -16,21 +16,30 @@ const unityContext = new UnityWebgl({
   productVersion: '1.0'
 })
 
-const canvasWidth = ref(window.innerWidth)
-const canvasHeight = canvasWidth.value / 9 * 16
+const getCanvasSize = () => {
+  const wWidth = window.innerWidth
+  const wHeight = window.innerHeight
+
+  return wWidth < (wHeight / 16 * 9) ? {
+    width: wWidth,
+    height: wWidth / 9 * 16
+  } : {
+    width: wHeight / 16 * 9,
+    height: wHeight
+  }
+}
+
+const {width, height} = getCanvasSize()
 </script>
 
 <template>
   <vue-unity
     class="unity-canvas"
     :unity="unityContext"
-    :width="canvasWidth"
-    :height="canvasHeight"
+    :width="width"
+    :height="height"
   />
 </template>
 
 <style scoped lang="stylus">
-.unity-canvas
-  max-width 600px
-  max-height 1067px
 </style>

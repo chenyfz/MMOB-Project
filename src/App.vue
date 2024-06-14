@@ -8,14 +8,10 @@ import SurveyPage from './pages/survey-page.vue'
 </script>
 
 <template>
-  <div class="page-container">
-    <intro-page v-if="stageStore.stage === Stage.INTRO" />
-    <game-page v-else-if="stageStore.stage === Stage.GAME" />
-    <survey-page v-else-if="stageStore.stage === Stage.SURVEY" />
-  </div>
+  <intro-page v-if="stageStore.stage === Stage.INTRO" />
+  <game-page v-else-if="stageStore.stage === Stage.GAME" />
+  <survey-page v-else-if="stageStore.stage === Stage.SURVEY" />
 </template>
 
 <style scoped lang="stylus">
-.page-container
-  margin: 0
 </style>

@@ -44,6 +44,7 @@ const toNextGameVersion = () => {
   display flex
   align-items center
   justify-content center
+  background black
 
 .test-button
   position absolute
