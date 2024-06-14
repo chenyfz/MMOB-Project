@@ -3,7 +3,6 @@ import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
 import {getDeviceMotionPermission} from './device-motion-permission'
 import GuideText from '../components/guide-text.vue'
-import {participantData} from '../store/data-store.ts'
 
 const onStart = async () => {
   const action = () => stageStore.stage = Stage.GAME

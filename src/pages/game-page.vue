@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import UnityCanvas from '../components/unity-canvas.vue'
-import {gameVersion, gameVersionOrder} from '../store/game-version-store.ts'
+import {gameVersion} from '../store/game-version-store.ts'
 
 const onCheat = () => {
   window.jsbridge.reportData(JSON.stringify({
