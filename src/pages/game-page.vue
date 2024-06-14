@@ -2,25 +2,44 @@
 import UnityCanvas from '../components/unity-canvas.vue'
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
+import {GameVersion} from '../types/game-version.ts'
+import {ref} from 'vue'
+import {gameVersion, setGameVersion} from '../store/game-version-store.ts'
 
 const toIntroPage = () => stageStore.stage = Stage.INTRO
 const toSurveyPage = () => stageStore.stage = Stage.SURVEY
+
+// todo delete for test
+let gameVersionIndex = 0
+const gameVersionOrder = ref([GameVersion.A, GameVersion.B, GameVersion.C])
+
+setGameVersion(gameVersionOrder.value[gameVersionIndex])
+
+const toNextGameVersion = () => {
+  gameVersionIndex = (gameVersionIndex + 1) % gameVersionOrder.value.length
+  setGameVersion(gameVersionOrder.value[gameVersionIndex])
+}
 </script>
 
 <template>
   <div class="game-page">
-    <unity-canvas />
+    <unity-canvas :key="gameVersion" />
     <button
       class="test-button left"
       @click="toIntroPage"
     >
-      test button, to intro page
+      test: to intro page
     </button>
     <button
       class="test-button right"
       @click="toSurveyPage"
     >
-      test button, to survey page
+      test: to survey page
+    </button>
+    <button
+      @click="toNextGameVersion"
+    >
+      test: next game version
     </button>
   </div>
 </template>

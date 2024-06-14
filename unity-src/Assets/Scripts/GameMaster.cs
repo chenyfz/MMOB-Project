@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -31,6 +32,8 @@ public class GameMaster : MonoBehaviour
     [Tooltip("What tilt feedback method should be used")]
     public GameVersion GameVersion;
 
+    private GameVersion gameVersionFromJs;
+
     public int Deaths { get; set; }
     public float PlayTimeSeconds { get; private set; }
     public GameState GameState { get; private set; }
@@ -56,6 +59,11 @@ public class GameMaster : MonoBehaviour
             audioMusicSource.clip = audioClip;
             audioMusicSource.Play();
         }
+    }
+
+    public void Start()
+    {
+        gameVersionFromJs = JsBridgeHelper.GetGameVersion();
     }
 
     public void Update()
@@ -101,17 +109,22 @@ public class GameMaster : MonoBehaviour
 
     void SetFeedback()
     {
-        if (GameVersion == GameVersion.NoFeedback)
+#if UNITY_WEBGL && !UNITY_EDITOR
+        var gameVersion = gameVersionFromJs;
+#else
+        var gameVersion = GameVersion;
+#endif     
+        if (gameVersion == GameVersion.NoFeedback)
         {
             playerUI.SetActive(false);
             gameUI.SetActive(false);
         }
-        else if (GameVersion == GameVersion.TopBar)
+        else if (gameVersion == GameVersion.TopBar)
         {
             gameUI.SetActive(true);
             playerUI.SetActive(false);
         }
-        else if (GameVersion == GameVersion.Character)
+        else if (gameVersion == GameVersion.Character)
         {
             gameUI.SetActive(false);
             playerUI.SetActive(true);
@@ -162,11 +175,4 @@ public enum GameState
     Menu,
     Playing,
     GameOver
-}
-
-public enum GameVersion
-{
-    NoFeedback,
-    TopBar,
-    Character
 }

@@ -9,15 +9,16 @@ public class JsBridgeHelper
     [DllImport("__Internal")]
     private static extern void ReportDataJSBridge(string jsonStr);
 
-    // possible values: "control", "non-diegetic", "diegetic"
-    public static string GetGameVersion()
+    // possible values from js: "control", "non-diegetic", "diegetic"
+    public static GameVersion GetGameVersion()
     {
-#if UNITY_WEBGL && !UNITY_EDITOR
-        return GetGameVersionJSBridge();
-#else
-        // for testing in unity editor
-        return "control";
-#endif
+        var gameVersionFromJs = GetGameVersionJSBridge();
+        return gameVersionFromJs switch
+        {
+            "control" => GameVersion.NoFeedback,
+            "non-diegetic" => GameVersion.TopBar,
+            _ => GameVersion.Character
+        };
     }
 
     // stringify the input json!

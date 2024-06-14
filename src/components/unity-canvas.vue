@@ -16,12 +16,6 @@ const unityContext = new UnityWebgl({
   productVersion: '1.0'
 })
 
-unityContext.on('mounted', () => {
-  setTimeout(() => {
-    unityContext.send('Cube', 'JSToUnityTest')
-  }, 5000)
-})
-
 const canvasWidth = ref(window.innerWidth)
 const canvasHeight = canvasWidth.value / 9 * 16
 </script>
