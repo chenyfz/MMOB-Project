@@ -29,12 +29,12 @@ public class MovingPlatform : Platform
 
     void BoundsUpdate()
     {
-        if (hitbox.bounds.max.x - hitbox.size.x / 2 > GameMaster.Instance.bottomRight.transform.position.x)
+        if (hitbox.bounds.max.x > GameMaster.Instance.bottomRight.transform.position.x)
         {
             movingLeft = true;
         }
 
-        if (hitbox.bounds.min.x + hitbox.size.x / 2 < GameMaster.Instance.topLeft.transform.position.x)
+        if (hitbox.bounds.min.x < GameMaster.Instance.topLeft.transform.position.x)
         {
             movingLeft = false;
         }

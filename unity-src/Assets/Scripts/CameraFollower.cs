@@ -22,11 +22,6 @@ public class CameraFollower : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, player.transform.position.y, transform.position.z);
         }
-
-        if (IsUnderScreen())
-        {
-            GameMaster.Instance.player.GetComponent<PlayerController>().Die();
-        }
     }
 
     public bool IsUnderScreen()

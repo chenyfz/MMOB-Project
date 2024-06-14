@@ -11,6 +11,7 @@ public class DissapearingPlatform : Platform
     IEnumerator Dissapear()
     {
         yield return new WaitForSeconds(0.2f);
+        GameMaster.Instance.PlaySFX("break");
         gameObject.SetActive(false);
     }
 }

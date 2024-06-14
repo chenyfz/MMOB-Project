@@ -9,6 +9,7 @@ public class DualTiltTracker : MonoBehaviour
     void Start()
     {
         var rangeOffset = Border.GetComponent<RectTransform>().rect.size.x / 2 - Indicator.GetComponent<RectTransform>().rect.size.x;
+        rangeOffset += 10;
         minRange = Border.transform.position.x - rangeOffset;
         maxRange = Border.transform.position.x + rangeOffset;
     }

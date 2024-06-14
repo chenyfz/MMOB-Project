@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     [Header("Input")]
     [SerializeField] public InputActionReference xMove;
 
-
+    private bool shouldUpdate = true;
     // Private variables
     private Vector2 desiredVelocity;
     private Rigidbody2D rb;
@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
     private Color damageColor = Color.red;
     private bool canTakeDamage = true;
 
+    private GameObject cam;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,21 +54,43 @@ public class PlayerController : MonoBehaviour
         hitbox = GetComponent<BoxCollider2D>();
         defaultGravityScale = 1.0f;
         gravMultiplier = defaultGravityScale;
+        cam = GameMaster.Instance.cam;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!shouldUpdate)
+        {
+            return;
+        }
         if (!canTakeDamage)
         {
             Flash();
+        }
+
+        if (cam.GetComponent<CameraFollower>().IsUnderScreen())
+        {
+            Die();
         }
         var xMoveAmount = xMove.action.ReadValue<float>();
         desiredVelocity.x = xMoveAmount * Mathf.Max(moveSpeed, 0f);
     }
 
+    public void SetInput(bool active)
+    {
+        Debug.Log("Setting input to " + active);
+        shouldUpdate = active;
+
+        rb.constraints = active ? RigidbodyConstraints2D.FreezeRotation : RigidbodyConstraints2D.FreezeAll;
+    }
+
     private void FixedUpdate()
     {
+        if (!shouldUpdate)
+        {
+            return;
+        }
         var velocity = rb.velocity;
         velocity.x = desiredVelocity.x;
         rb.velocity = velocity;
@@ -129,9 +153,9 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("We died L");
-        GameMaster.Instance.Reset();
+        GameMaster.Instance.level.GetComponent<CheckPointHandler>().GoToCheckpoint();
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!canTakeDamage)

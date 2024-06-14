@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameMaster : MonoBehaviour
@@ -13,6 +14,8 @@ public class GameMaster : MonoBehaviour
 
     [Header("UI")]
     public GameObject gameUI;
+    public GameObject menuUI;
+    public GameObject playerUI;
 
     [Header("Game Objects")]
     [Tooltip("Player game object")]
@@ -20,13 +23,22 @@ public class GameMaster : MonoBehaviour
     public GameObject cam;
     public GameObject topLeft;
     public GameObject bottomRight;
-
     public GameObject background;
+    public GameObject level;
+    public GameObject root;
 
-    public int Score { get; private set; }
+    [Header("Game Settings")]
+    [Tooltip("What tilt feedback method should be used")]
+    public GameVersion GameVersion;
+
+    public int Deaths { get; set; }
+    public float PlayTimeSeconds { get; private set; }
     public GameState GameState { get; private set; }
+    public Vector3 PlayerInitialPosition { get; private set; }
+
+
+
     private bool hasInitialized = false;
-    private Vector3 playerInitialPosition;
     public void PlaySFX(string path)
     {
         AudioClip audioClip = Resources.Load<AudioClip>("SFX/" + path);
@@ -52,14 +64,17 @@ public class GameMaster : MonoBehaviour
         {
             Initialize();
         }
+        if (GameState == GameState.Playing)
+        {
+            PlayTimeSeconds += Time.deltaTime;
+        }
     }
 
 
     public void Reset()
     {
-        player.transform.position = playerInitialPosition;
-        cam.transform.position = new Vector3(0, 0, -10);
-        background.GetComponent<Background>().Reset();
+        Deaths = 0;
+        PlayTimeSeconds = 0.0f;
     }
 
     public void OnGameStateChange(GameState gameState)
@@ -68,13 +83,38 @@ public class GameMaster : MonoBehaviour
         switch (gameState)
         {
             case GameState.Menu:
+                menuUI.SetActive(true);
+                root.SetActive(false);
                 break;
             case GameState.Playing:
+                SetFeedback();
+                menuUI.SetActive(false);
+                root.SetActive(true);
                 break;
             case GameState.GameOver:
+                menuUI.SetActive(true);
+                gameUI.SetActive(false);
+                root.SetActive(false);
                 break;
-            case GameState.Paused:
-                break;
+        }
+    }
+
+    void SetFeedback()
+    {
+        if (GameVersion == GameVersion.NoFeedback)
+        {
+            playerUI.SetActive(false);
+            gameUI.SetActive(false);
+        }
+        else if (GameVersion == GameVersion.TopBar)
+        {
+            gameUI.SetActive(true);
+            playerUI.SetActive(false);
+        }
+        else if (GameVersion == GameVersion.Character)
+        {
+            gameUI.SetActive(false);
+            playerUI.SetActive(true);
         }
     }
 
@@ -86,7 +126,7 @@ public class GameMaster : MonoBehaviour
             Instance = this;
         DontDestroyOnLoad(this);
 
-        playerInitialPosition = player.transform.position;
+        PlayerInitialPosition = player.transform.position;
     }
 
     void Initialize()
@@ -95,12 +135,38 @@ public class GameMaster : MonoBehaviour
         OnGameStateChange(GameState.Menu);
         hasInitialized = true;
     }
+
+    public void Done()
+    {
+        PlaySFX("win");
+
+        StartCoroutine(FinishGame());
+    }
+
+    public IEnumerator FinishGame()
+    {
+        player.GetComponent<PlayerController>().SetInput(false);
+        yield return new WaitForSeconds(0.5f);
+        OnGameStateChange(GameState.GameOver);
+        SubmitResults();
+    }
+
+    public void SubmitResults()
+    {
+        //TODO: submit to JS
+    }
 }
 
 public enum GameState
 {
     Menu,
     Playing,
-    Paused,
     GameOver
+}
+
+public enum GameVersion
+{
+    NoFeedback,
+    TopBar,
+    Character
 }
