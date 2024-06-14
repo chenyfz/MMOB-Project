@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "unity-webgl": "^3.5.5",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vuetify": "^3.6.9"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.21.0",
