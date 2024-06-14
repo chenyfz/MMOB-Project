@@ -8,6 +8,9 @@ import 'vuetify/styles'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { createVuetify } from 'vuetify'
+import {participantData} from './store/data-store.ts'
+import {stageStore} from './store/stage-store.ts'
+import {Stage} from './types/stage-type.ts'
 
 const vuetify = createVuetify({
     components,
@@ -31,6 +34,22 @@ window.jsbridge = {
         return gameVersion.value
     },
     reportData: (jsonStr: string) => {
-        console.log(JSON.parse(jsonStr))
+        const dataItem = {
+            version: gameVersion.value,
+            dataJSON: jsonStr
+        }
+        if (!participantData.value.gamePerformanceData) {
+            participantData.value.gamePerformanceData = [dataItem]
+        } else {
+            const index = participantData.value.gamePerformanceData.findIndex(item => item.version === gameVersion.value)
+            if (index !== -1) {
+                participantData.value.gamePerformanceData[index] = dataItem
+            } else {
+                participantData.value.gamePerformanceData.push(dataItem)
+            }
+        }
+        setTimeout(() => {
+            stageStore.stage = Stage.MID_SURVEY
+        }, 300)
     }
 }

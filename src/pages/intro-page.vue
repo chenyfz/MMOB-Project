@@ -1,21 +1,10 @@
 <script setup lang="ts">
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
-import {writeParticipantData} from '../api'
-import {ref} from 'vue'
-import {ParticipantData} from '../types/participant-data.ts'
 import ConsentText from '../components/consent-text.vue'
-
-const resp = ref<Partial<ParticipantData>>({})
 
 const onGiveConsent = async () => {
   stageStore.stage = Stage.PRE_SURVEY
-}
-
-const onTestServer = async () => {
-  resp.value = await writeParticipantData({
-    name: 'test from web'
-  })
 }
 </script>
 
@@ -36,7 +25,6 @@ const onTestServer = async () => {
       color="grey-lighten-3"
       block
       class="text-none"
-      @click="onTestServer"
     >
       Quit
     </v-btn>

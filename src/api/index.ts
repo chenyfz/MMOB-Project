@@ -11,9 +11,7 @@ export async function writeParticipantData (data: Partial<ParticipantData>) {
             },
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
-            body: {
-                data
-            } as unknown as BodyInit, // work around
+            body: JSON.stringify({ data })
         })
     return response.json() // parses JSON response into native JavaScript objects
 }

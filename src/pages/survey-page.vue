@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>survey page</div>
+  <div>Final Survey page</div>
   <input type="text">
   <button>submit</button>
 </template>

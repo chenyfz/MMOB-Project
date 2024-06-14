@@ -166,7 +166,23 @@ public class GameMaster : MonoBehaviour
 
     public void SubmitResults()
     {
-        //TODO: submit to JS
+        var data = new ReportedDataObject
+        {
+            Deaths = Deaths,
+            PlayTimeSecondsStr = PlayTimeSeconds.ToString("F4")
+        };
+        JsBridgeHelper.ReportData(data.SaveToJsonString());
+    }
+}
+
+public class ReportedDataObject
+{
+    public int Deaths;
+    public string PlayTimeSecondsStr;
+    
+    public string SaveToJsonString()
+    {
+        return JsonUtility.ToJson(this);
     }
 }
 

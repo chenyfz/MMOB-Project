@@ -1,5 +1,4 @@
 export type ParticipantData = {
-    name: string,
     ParticipantId: string,
     gameVersionOrder: string,
 
@@ -10,6 +9,6 @@ export type ParticipantData = {
 
     questionnaire: [{
         questionId: string,
-        questionAnswer: string,
+        questionAnswer: number | string,
     }]
 }

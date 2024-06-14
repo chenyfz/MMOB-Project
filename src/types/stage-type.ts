@@ -3,5 +3,6 @@ export enum Stage {
     GUIDE = 5,
     PRE_SURVEY = 6,
     GAME = 10,
+    MID_SURVEY = 15,
     SURVEY = 20,
 }

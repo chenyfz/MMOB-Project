@@ -1,40 +1,25 @@
 <script setup lang="ts">
 import UnityCanvas from '../components/unity-canvas.vue'
-import {stageStore} from '../store/stage-store.ts'
-import {Stage} from '../types/stage-type.ts'
-import {GameVersion} from '../types/game-version.ts'
-import {ref} from 'vue'
-import {gameVersion, setGameVersion} from '../store/game-version-store.ts'
+import {gameVersion, gameVersionOrder} from '../store/game-version-store.ts'
 
-const toSurveyPage = () => stageStore.stage = Stage.SURVEY
-
-// todo delete for test
-let gameVersionIndex = 0
-const gameVersionOrder = ref([GameVersion.A, GameVersion.B, GameVersion.C])
-
-setGameVersion(gameVersionOrder.value[gameVersionIndex])
-
-const toNextGameVersion = () => {
-  gameVersionIndex = (gameVersionIndex + 1) % gameVersionOrder.value.length
-  setGameVersion(gameVersionOrder.value[gameVersionIndex])
+const onCheat = () => {
+  window.jsbridge.reportData(JSON.stringify({
+    Deaths: 2,
+    PlayTimeSecondsStr: '2.3333'
+  }))
 }
+
 </script>
 
 <template>
   <div class="game-page">
     <unity-canvas :key="gameVersion" />
-    <button
+    <v-btn
       class="test-button right"
-      @click="toSurveyPage"
+      @click="onCheat"
     >
-      test: to survey page
-    </button>
-    <button
-      class="test-button left"
-      @click="toNextGameVersion"
-    >
-      test: next game version
-    </button>
+      test: Hack to pass!
+    </v-btn>
   </div>
 </template>
 

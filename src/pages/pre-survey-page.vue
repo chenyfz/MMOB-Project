@@ -2,6 +2,10 @@
 import {ref} from 'vue'
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
+import {ParticipantData} from '../types/participant-data.ts'
+import {participantData} from '../store/data-store.ts'
+import {writeParticipantData} from '../api'
+import {setGameVersionOrder} from '../store/game-version-store.ts'
 
 const age = ref('')
 const gender = ref('')
@@ -18,7 +22,40 @@ const rules = {
   isInteger: (value: string) => isInteger(value) || 'This field should be an integer'
 }
 
-const onSubmit = () => {
+const onSubmit = async () => {
+  const requestBody: Partial<ParticipantData> = {}
+  if (participantData.value.ParticipantId) {
+    requestBody.ParticipantId = participantData.value.ParticipantId
+  }
+
+  requestBody.questionnaire = [{
+    questionId: 'age',
+    questionAnswer: age.value
+  }]
+  requestBody.questionnaire.push({
+    questionId: 'gender',
+    questionAnswer: gender.value
+  })
+  requestBody.questionnaire.push({
+    questionId: 'generalMobileGamesExperience',
+    questionAnswer: generalMobileGames.value
+  })
+  requestBody.questionnaire.push({
+    questionId: 'mobile2DExperience',
+    questionAnswer: mobile2D.value
+  })
+  requestBody.questionnaire.push({
+    questionId: 'mobileTiltExperience',
+    questionAnswer: mobileTilt.value
+  })
+
+  const resp = await writeParticipantData(requestBody)
+  localStorage.setItem('mmob-participant-info', JSON.stringify(resp))
+  participantData.value = resp
+
+  const order = participantData.value.gameVersionOrder
+  if (order) setGameVersionOrder(order)
+
   stageStore.stage = Stage.GUIDE
 }
 </script>
