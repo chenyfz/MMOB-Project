@@ -6,7 +6,6 @@ import loaderUrl from '/unity-webgl/Build/unity-webgl.loader.js?url'
 import dataUrl from '/unity-webgl/Build/unity-webgl.data?url'
 import frameworkUrl from '/unity-webgl/Build/unity-webgl.framework.js?url'
 import codeUrl from '/unity-webgl/Build/unity-webgl.wasm?url'
-import {ref} from 'vue'
 
 const unityContext = new UnityWebgl({
   loaderUrl,
