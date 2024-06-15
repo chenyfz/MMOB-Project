@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import {ref} from 'vue'
+import {stageStore} from '../store/stage-store.ts'
+import {Stage} from '../types/stage-type.ts'
 
 const preferred = ref('')
 const reason = ref('')
 const generalComment = ref('')
 
+let loading = false
 const onFinish = () => {
-
+  if (loading) return
+  loading = true
+  try {
+    stageStore.stage = Stage.THANKS
+  } catch (e) {
+    console.error(e)
+  }
 }
 </script>
 

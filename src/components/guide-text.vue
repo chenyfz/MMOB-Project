@@ -9,7 +9,7 @@
 
   <p>
     You will play as this robot:
-    <img src="/img-1.png" width="50">.
+    <img src="/img-1.png" width="75">.
     The robot will be jumping automatically and continuously.
   </p>
   <p class="title">
@@ -34,13 +34,13 @@
 
   <div class="platforms">
     <p>Normal: Static platform on which you can jump endlessly.</p>
-    <div class="image-container"><img src="/img-3.png"></div>
+    <div class="image-container"><img src="/img-3.png" width="150"></div>
     <div class="spacer" />
     <p>Breakable: Static platform on which you can only jump once before it disappears</p>
-    <div class="image-container"><img src="/img-4.png"></div>
+    <div class="image-container"><img src="/img-4.png" width="150"></div>
     <div class="spacer" />
     <p>Movable: Platform that moves horizontally and on which you can jump endlessly.</p>
-    <div class="image-container"><img src="/img-5.png"></div>
+    <div class="image-container"><img src="/img-5.png" width="150"></div>
   </div>
 
   <p class="title">
@@ -50,11 +50,11 @@
   <p>• Control version; Without additional visual feedback on the tilt degree.</p>
   <p>• Balance bar; On top of the screen, a balance bar will be visualized to indicate the tilt degree of your mobile phone in real-time.</p>
   <div class="image-container">
-    <img src="/img-6.png">
+    <img src="/img-6.png" width="50%">
   </div>
   <p>• Power bars; Two power bars are visualized on the robot. The left bar (fill colour: red) indicates the level of tilt degree to the left, while the right bar (fill colour: blue) indicates the level of tilt degree to the right.</p>
-  <p><img src="/img-7.png" width="48">: Tilt a lot to the left.</p>
-  <p> <img src="/img-8.png" width="48">: Tilt slightly to the right.</p>
+  <p><img src="/img-7.png" width="75">: Tilt a lot to the left.</p>
+  <p> <img src="/img-8.png" width="75">: Tilt slightly to the right.</p>
   <p class="title">
     Additional features
   </p>

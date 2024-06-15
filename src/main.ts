@@ -51,5 +51,7 @@ window.jsbridge = {
         setTimeout(() => {
             stageStore.stage = Stage.MID_SURVEY
         }, 300)
+
+        // writeParticipantData(participantData.value)
     }
 }

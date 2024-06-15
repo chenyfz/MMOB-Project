@@ -1,20 +1,12 @@
 <script setup lang="ts">
-import {isTheLastGameVersion, setToNextGameVersion} from '../store/game-version-store.ts'
+import {gameVersion, isTheLastGameVersion, setToNextGameVersion} from '../store/game-version-store.ts'
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
 import LikertPoint from '../components/Likert-point.vue'
 import {ref} from 'vue'
-
-const onNext = () => {
-  // todo submit form
-  setToNextGameVersion()
-
-  if (isTheLastGameVersion()) {
-    stageStore.stage = Stage.SURVEY
-  } else {
-    stageStore.stage = Stage.GAME
-  }
-}
+import {participantData} from '../store/data-store.ts'
+import {writeParticipantData} from '../api'
+import {ParticipantData} from '../types/participant-data.ts'
 
 const likertList = ref(new Array(15).fill(0))
 const questionList = [
@@ -36,8 +28,51 @@ const questionList = [
 ]
 
 const immersion = ref(0)
-const playstyleImpact = ref('')
-const additional_comment = ref('')
+const playStyleImpact = ref('')
+const additionalComment = ref('')
+
+let loading = false
+const onNext = async () => {
+  if (loading) return
+  try {
+    const requestBody: Partial<ParticipantData> = {}
+    if (participantData.value.ParticipantId) {
+      requestBody.ParticipantId = participantData.value.ParticipantId
+    }
+
+    requestBody.questionnaire = [{
+      questionId: gameVersion.value+ 'Likert',
+      questionAnswer: likertList.value
+    }]
+    requestBody.questionnaire.push({
+      questionId: 'immersion',
+      questionAnswer: immersion.value
+    })
+    requestBody.questionnaire.push({
+      questionId: 'playStyleImpact',
+      questionAnswer: playStyleImpact.value
+    })
+    requestBody.questionnaire.push({
+      questionId: 'additionalComment',
+      questionAnswer: additionalComment.value
+    })
+
+    const resp = await writeParticipantData(requestBody)
+    localStorage.setItem('mmob-participant-info', JSON.stringify(resp))
+    participantData.value = resp
+    loading = false
+
+    if (isTheLastGameVersion()) {
+      stageStore.stage = Stage.SURVEY
+    } else {
+      setToNextGameVersion()
+      stageStore.stage = Stage.GAME
+    }
+  } catch (e) {
+    console.error(e)
+    loading = false
+  }
+}
 </script>
 
 <template>
@@ -62,7 +97,7 @@ const additional_comment = ref('')
 
     <p class="question">Did the additional visualisation or the lack thereof impact your playstyle? Please explain if the impact was positive or negative and why.</p>
     <v-textarea
-      v-model="playstyleImpact"
+      v-model="playStyleImpact"
       row-height="25"
       rows="4"
       variant="outlined"
@@ -72,7 +107,7 @@ const additional_comment = ref('')
 
     <p class="question">Additional comments about this version of the game?</p>
     <v-textarea
-      v-model="additional_comment"
+      v-model="additionalComment"
       row-height="25"
       rows="4"
       variant="outlined"
@@ -87,7 +122,7 @@ const additional_comment = ref('')
       class="text-none mt-4 mb-2"
       @click="onNext"
     >
-      Start Next Version
+      {{ isTheLastGameVersion()? 'Start Final Survey' : 'Start Next Version' }}
     </v-btn>
   </div>
 </template>

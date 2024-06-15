@@ -22,41 +22,49 @@ const rules = {
   isInteger: (value: string) => isInteger(value) || 'This field should be an integer'
 }
 
+let loading = false
 const onSubmit = async () => {
-  const requestBody: Partial<ParticipantData> = {}
-  if (participantData.value.ParticipantId) {
-    requestBody.ParticipantId = participantData.value.ParticipantId
+  if (loading) return
+  loading = true
+  try {
+    const requestBody: Partial<ParticipantData> = {}
+    if (participantData.value.ParticipantId) {
+      requestBody.ParticipantId = participantData.value.ParticipantId
+    }
+
+    requestBody.questionnaire = [{
+      questionId: 'age',
+      questionAnswer: age.value
+    }]
+    requestBody.questionnaire.push({
+      questionId: 'gender',
+      questionAnswer: gender.value
+    })
+    requestBody.questionnaire.push({
+      questionId: 'generalMobileGamesExperience',
+      questionAnswer: generalMobileGames.value
+    })
+    requestBody.questionnaire.push({
+      questionId: 'mobile2DExperience',
+      questionAnswer: mobile2D.value
+    })
+    requestBody.questionnaire.push({
+      questionId: 'mobileTiltExperience',
+      questionAnswer: mobileTilt.value
+    })
+
+    const resp = await writeParticipantData(requestBody)
+    localStorage.setItem('mmob-participant-info', JSON.stringify(resp))
+    participantData.value = resp
+
+    const order = participantData.value.gameVersionOrder
+    if (order) setGameVersionOrder(order)
+    loading = false
+    stageStore.stage = Stage.GUIDE
+  } catch (e) {
+    console.error(e)
+    loading = false
   }
-
-  requestBody.questionnaire = [{
-    questionId: 'age',
-    questionAnswer: age.value
-  }]
-  requestBody.questionnaire.push({
-    questionId: 'gender',
-    questionAnswer: gender.value
-  })
-  requestBody.questionnaire.push({
-    questionId: 'generalMobileGamesExperience',
-    questionAnswer: generalMobileGames.value
-  })
-  requestBody.questionnaire.push({
-    questionId: 'mobile2DExperience',
-    questionAnswer: mobile2D.value
-  })
-  requestBody.questionnaire.push({
-    questionId: 'mobileTiltExperience',
-    questionAnswer: mobileTilt.value
-  })
-
-  const resp = await writeParticipantData(requestBody)
-  localStorage.setItem('mmob-participant-info', JSON.stringify(resp))
-  participantData.value = resp
-
-  const order = participantData.value.gameVersionOrder
-  if (order) setGameVersionOrder(order)
-
-  stageStore.stage = Stage.GUIDE
 }
 </script>
 

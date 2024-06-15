@@ -9,6 +9,6 @@ export type ParticipantData = {
 
     questionnaire: [{
         questionId: string,
-        questionAnswer: number | string,
+        questionAnswer: number | string | number[],
     }]
 }
