@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
 import {participantData} from '../store/data-store.ts'
@@ -8,6 +8,12 @@ import {writeParticipantData} from '../api'
 const preferred = ref<string[]>([])
 const reason = ref('')
 const generalComment = ref('')
+
+const isComplete = computed(() => {
+  return preferred.value.length === 3 &&
+      reason.value !== '' &&
+      generalComment.value !== ''
+})
 
 let loading = false
 const onFinish = async () => {
@@ -76,10 +82,12 @@ const onFinish = async () => {
       color="primary"
       block
       class="text-none mt-4 mb-2"
+      :disabled="!isComplete"
       @click="onFinish"
     >
       Finish
     </v-btn>
+    <p v-if="!isComplete" class="error-msg">Please complete all fields.</p>
   </div>
 </template>
 

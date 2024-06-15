@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
 import {participantData} from '../store/data-store.ts'
@@ -8,9 +8,17 @@ import {setGameVersionOrder} from '../store/game-version-store.ts'
 
 const age = ref('')
 const gender = ref('')
-const generalMobileGames = ref(0)
-const mobile2D = ref(0)
-const mobileTilt = ref(0)
+const generalMobileGames = ref(-1)
+const mobile2D = ref(-1)
+const mobileTilt = ref(-1)
+
+const isComplete = computed(() => {
+  return age.value !== '' && isInteger(age.value) &&
+      gender.value !== '' &&
+      generalMobileGames.value !== -1 &&
+      mobile2D.value !== -1 &&
+      mobileTilt.value !== -1
+})
 
 const isInteger = (str: string) => {
   return /^\d+$/.test(str)
@@ -87,7 +95,7 @@ const onSubmit = async () => {
     </v-radio-group>
 
     <p class="question">How would you rate your experience in the following concepts (1 being no experience and 100 being an expert)?</p>
-    <p>General mobile games: {{ generalMobileGames }}</p>
+    <p>General mobile games: {{ generalMobileGames !== -1 ? generalMobileGames : '' }}</p>
     <v-slider
       v-model="generalMobileGames"
       thumb-label
@@ -95,7 +103,7 @@ const onSubmit = async () => {
       :min="0"
       :step="1"
     />
-    <p>Mobile 2D platformer games: {{ mobile2D }}</p>
+    <p>Mobile 2D platformer games: {{ mobile2D !== -1 ? mobile2D : '' }}</p>
     <v-slider
       v-model="mobile2D"
       thumb-label
@@ -103,7 +111,7 @@ const onSubmit = async () => {
       :min="0"
       :step="1"
     />
-    <p>Mobile tilt control: {{ mobileTilt }}</p>
+    <p>Mobile tilt control: {{ mobileTilt !== -1 ? mobileTilt : '' }}</p>
     <v-slider
       v-model="mobileTilt"
       thumb-label
@@ -115,11 +123,13 @@ const onSubmit = async () => {
       variant="flat"
       color="primary"
       block
+      :disabled="!isComplete"
       class="text-none mt-4 mb-2"
       @click="onSubmit"
     >
       Submit
     </v-btn>
+    <p v-if="!isComplete" class="error-msg">Please complete all fields.</p>
   </div>
 </template>
 

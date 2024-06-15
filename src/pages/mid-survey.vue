@@ -3,7 +3,7 @@ import {gameVersion, isTheLastGameVersion, setToNextGameVersion} from '../store/
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
 import LikertPoint from '../components/Likert-point.vue'
-import {ref} from 'vue'
+import {computed, ref} from 'vue'
 import {participantData} from '../store/data-store.ts'
 import {writeParticipantData} from '../api'
 
@@ -26,9 +26,15 @@ const questionList = [
   'I still felt as if I was in the real world whilst playing.'
 ]
 
-const immersion = ref(0)
+const immersion = ref(-1)
 const playStyleImpact = ref('')
 const additionalComment = ref('')
+const isComplete = computed(() => {
+  return likertList.value.indexOf(0) === -1 &&
+      immersion.value !== -1 &&
+      playStyleImpact.value !== '' &&
+      additionalComment.value !== ''
+})
 
 let loading = false
 const onNext = async () => {
@@ -82,7 +88,7 @@ const onNext = async () => {
     </template>
 
 
-    <p class="question">How immersed did you feel?</p>
+    <p class="question">How immersed did you feel? {{ immersion !== -1 ? immersion : '' }}</p>
     <p>(0=not at all immersed; 10=very immersed)</p>
     <v-slider
       v-model="immersion"
@@ -117,10 +123,12 @@ const onNext = async () => {
       color="primary"
       block
       class="text-none mt-4 mb-2"
+      :disabled="!isComplete"
       @click="onNext"
     >
       {{ isTheLastGameVersion()? 'Start Final Survey' : 'Start Next Version' }}
     </v-btn>
+    <p v-if="!isComplete" class="error-msg">Please complete all fields.</p>
   </div>
 </template>
 

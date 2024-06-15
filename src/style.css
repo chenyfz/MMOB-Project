@@ -7,3 +7,10 @@ body {
 .spacer {
     padding-top: 12px
 }
+
+.error-msg {
+    margin-top: 4px;
+    color: orange;
+    font-weight: bold;
+    text-align: center;
+}
