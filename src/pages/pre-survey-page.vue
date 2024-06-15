@@ -2,7 +2,6 @@
 import {ref} from 'vue'
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
-import {ParticipantData} from '../types/participant-data.ts'
 import {participantData} from '../store/data-store.ts'
 import {writeParticipantData} from '../api'
 import {setGameVersionOrder} from '../store/game-version-store.ts'
@@ -27,33 +26,30 @@ const onSubmit = async () => {
   if (loading) return
   loading = true
   try {
-    const requestBody: Partial<ParticipantData> = {}
-    if (participantData.value.ParticipantId) {
-      requestBody.ParticipantId = participantData.value.ParticipantId
-    }
+    participantData.value.questionnaire = [] as unknown as [{ questionId: string, questionAnswer: string | number | number[] }]
 
-    requestBody.questionnaire = [{
+    participantData.value.questionnaire.push({
       questionId: 'age',
       questionAnswer: age.value
-    }]
-    requestBody.questionnaire.push({
+    })
+    participantData.value.questionnaire.push({
       questionId: 'gender',
       questionAnswer: gender.value
     })
-    requestBody.questionnaire.push({
+    participantData.value.questionnaire.push({
       questionId: 'generalMobileGamesExperience',
       questionAnswer: generalMobileGames.value
     })
-    requestBody.questionnaire.push({
+    participantData.value.questionnaire.push({
       questionId: 'mobile2DExperience',
       questionAnswer: mobile2D.value
     })
-    requestBody.questionnaire.push({
+    participantData.value.questionnaire.push({
       questionId: 'mobileTiltExperience',
       questionAnswer: mobileTilt.value
     })
 
-    const resp = await writeParticipantData(requestBody)
+    const resp = await writeParticipantData(participantData.value)
     localStorage.setItem('mmob-participant-info', JSON.stringify(resp))
     participantData.value = resp
 

@@ -6,7 +6,6 @@ import LikertPoint from '../components/Likert-point.vue'
 import {ref} from 'vue'
 import {participantData} from '../store/data-store.ts'
 import {writeParticipantData} from '../api'
-import {ParticipantData} from '../types/participant-data.ts'
 
 const likertList = ref(new Array(15).fill(0))
 const questionList = [
@@ -35,29 +34,27 @@ let loading = false
 const onNext = async () => {
   if (loading) return
   try {
-    const requestBody: Partial<ParticipantData> = {}
-    if (participantData.value.ParticipantId) {
-      requestBody.ParticipantId = participantData.value.ParticipantId
+    if (!participantData.value.questionnaire) {
+      participantData.value.questionnaire = [] as unknown as [{ questionId: string, questionAnswer: string | number | number[] }]
     }
-
-    requestBody.questionnaire = [{
-      questionId: gameVersion.value+ 'Likert',
+    participantData.value.questionnaire.push({
+      questionId: gameVersion.value + 'Likert',
       questionAnswer: likertList.value
-    }]
-    requestBody.questionnaire.push({
-      questionId: 'immersion',
+    })
+    participantData.value.questionnaire.push({
+      questionId: gameVersion.value + 'Immersion',
       questionAnswer: immersion.value
     })
-    requestBody.questionnaire.push({
-      questionId: 'playStyleImpact',
+    participantData.value.questionnaire.push({
+      questionId: gameVersion.value + 'PlayStyleImpact',
       questionAnswer: playStyleImpact.value
     })
-    requestBody.questionnaire.push({
-      questionId: 'additionalComment',
+    participantData.value.questionnaire.push({
+      questionId: gameVersion.value + 'AdditionalComment',
       questionAnswer: additionalComment.value
     })
 
-    const resp = await writeParticipantData(requestBody)
+    const resp = await writeParticipantData(participantData.value)
     localStorage.setItem('mmob-participant-info', JSON.stringify(resp))
     participantData.value = resp
     loading = false

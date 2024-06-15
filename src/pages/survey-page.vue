@@ -2,19 +2,41 @@
 import {ref} from 'vue'
 import {stageStore} from '../store/stage-store.ts'
 import {Stage} from '../types/stage-type.ts'
+import {participantData} from '../store/data-store.ts'
+import {writeParticipantData} from '../api'
 
 const preferred = ref('')
 const reason = ref('')
 const generalComment = ref('')
 
 let loading = false
-const onFinish = () => {
+const onFinish = async () => {
   if (loading) return
   loading = true
   try {
+    if (!participantData.value.questionnaire) {
+      participantData.value.questionnaire = [] as unknown as [{ questionId: string, questionAnswer: string | number | number[] }]
+    }
+    participantData.value.questionnaire.push({
+      questionId: 'preferred',
+      questionAnswer: preferred.value
+    })
+    participantData.value.questionnaire.push({
+      questionId: 'reason',
+      questionAnswer: reason.value
+    })
+    participantData.value.questionnaire.push({
+      questionId: 'generalComment',
+      questionAnswer: generalComment.value
+    })
+    const resp = await writeParticipantData(participantData.value)
+    localStorage.setItem('mmob-participant-info', JSON.stringify(resp))
+    participantData.value = resp
+    loading = false
     stageStore.stage = Stage.THANKS
   } catch (e) {
     console.error(e)
+    loading = false
   }
 }
 </script>

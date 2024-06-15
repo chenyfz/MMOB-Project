@@ -11,6 +11,7 @@ import { createVuetify } from 'vuetify'
 import {participantData} from './store/data-store.ts'
 import {stageStore} from './store/stage-store.ts'
 import {Stage} from './types/stage-type.ts'
+import {writeParticipantData} from './api'
 
 const vuetify = createVuetify({
     components,
@@ -52,6 +53,6 @@ window.jsbridge = {
             stageStore.stage = Stage.MID_SURVEY
         }, 300)
 
-        // writeParticipantData(participantData.value)
+        writeParticipantData(participantData.value)
     }
 }
