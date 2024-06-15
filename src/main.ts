@@ -53,6 +53,9 @@ window.jsbridge = {
             stageStore.stage = Stage.MID_SURVEY
         }, 300)
 
-        writeParticipantData(participantData.value)
+        writeParticipantData(participantData.value).then(res => {
+            participantData.value = res
+            localStorage.setItem('mmob-participant-info', JSON.stringify(participantData.value))
+        })
     }
 }

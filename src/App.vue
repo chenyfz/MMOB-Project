@@ -8,8 +8,15 @@ import GuidePage from './pages/guide-page.vue'
 import PreSurveyPage from './pages/pre-survey-page.vue'
 import {participantData} from './store/data-store.ts'
 import MidSurvey from './pages/mid-survey.vue'
-import {setGameVersionOrder} from './store/game-version-store.ts'
+import {
+  gameVersion,
+  gameVersionOrder,
+  isTheLastGameVersion,
+  setGameVersionOrder,
+  setToNextGameVersion
+} from './store/game-version-store.ts'
 import ThanksPage from './pages/thanks-page.vue'
+import {GameVersion} from './types/game-version.ts'
 
 const data = localStorage.getItem('mmob-participant-info')
 if (data) {
@@ -17,9 +24,50 @@ if (data) {
     participantData.value = JSON.parse(data)
     const order = participantData.value.gameVersionOrder
     if (order) setGameVersionOrder(order)
+
+    console.log(participantData.value)
+
+    const finalIndex = participantData.value?.questionnaire?.findIndex(item => item.questionId === 'generalComment') ?? -1
+
+    let haveInGameData = false
+    if (finalIndex !== -1) {
+      stageStore.stage = Stage.THANKS
+    } else {
+      const reversedGameVersion = [...gameVersionOrder.value].reverse()
+      for (const version of reversedGameVersion) {
+        const versionIndex = participantData.value?.questionnaire?.findIndex(item => item.questionId === version + 'AdditionalComment') ?? -1
+        if (versionIndex !== -1) {
+          gameVersion.value = version as GameVersion
+          if (isTheLastGameVersion()) {
+            stageStore.stage = Stage.SURVEY
+          } else {
+            setToNextGameVersion()
+            stageStore.stage = Stage.GAME
+          }
+          haveInGameData = true
+          break
+        }
+        const performanceIndex = participantData.value?.gamePerformanceData?.findIndex(item => item.version === version) ?? -1
+        if (performanceIndex !== -1) {
+          stageStore.stage = Stage.MID_SURVEY
+          gameVersion.value = version as GameVersion
+          haveInGameData = true
+          break
+        }
+      }
+      if (!haveInGameData) {
+        const preIndex = participantData.value?.questionnaire?.findIndex(item => item.questionId === 'age') ?? -1
+        if (preIndex !== -1) {
+          stageStore.stage = Stage.GAME
+        }
+      }
+    }
+
   } catch (e) {
     console.error(e)
+    localStorage.removeItem('mmob-participant-info')
   }
+
 }
 
 const isMobile = window.innerWidth < 600
