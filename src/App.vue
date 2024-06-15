@@ -25,8 +25,7 @@ if (data) {
     const order = participantData.value.gameVersionOrder
     if (order) setGameVersionOrder(order)
 
-    console.log(participantData.value)
-
+    // region test
     const finalIndex = participantData.value?.questionnaire?.findIndex(item => item.questionId === 'generalComment') ?? -1
 
     let haveInGameData = false
@@ -62,6 +61,7 @@ if (data) {
         }
       }
     }
+    // endregion test
 
   } catch (e) {
     console.error(e)
@@ -71,6 +71,10 @@ if (data) {
 }
 
 const isMobile = window.innerWidth < 600
+
+const onClear = () => {
+  localStorage.removeItem('mmob-participant-info')
+}
 </script>
 
 <template>
@@ -89,6 +93,7 @@ const isMobile = window.innerWidth < 600
       <p>Please open this on a mobile device.</p>
     </div>
   </div>
+  <v-btn class="test-button" color="error" @click="onClear">test: clear local storage</v-btn>
 </template>
 
 <style scoped lang="stylus">
@@ -105,4 +110,8 @@ const isMobile = window.innerWidth < 600
 
   p
     margin-top 8px
+.test-button
+  position fixed
+  right 4px
+  bottom 4px
 </style>

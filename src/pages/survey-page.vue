@@ -5,7 +5,7 @@ import {Stage} from '../types/stage-type.ts'
 import {participantData} from '../store/data-store.ts'
 import {writeParticipantData} from '../api'
 
-const preferred = ref('')
+const preferred = ref<string[]>([])
 const reason = ref('')
 const generalComment = ref('')
 
@@ -43,12 +43,13 @@ const onFinish = async () => {
 
 <template>
   <div class="survey-page">
-    <p class="question">Please rank each version based on which you preferred</p>
-    <v-radio-group v-model="preferred">
-      <v-radio label="Control" value="Control" />
-      <v-radio label="Balance bar" value="Balance bar" />
-      <v-radio label="Power bars" value="Power bars" />
-    </v-radio-group>
+    <p class="question">Please rank each version based on which you preferred, first being the most preferred.</p>
+
+    <v-combobox
+      v-model="preferred"
+      :items="['Power bars (one the character)', 'Control', 'Balance bar (at the top of screen)']"
+      multiple
+    />
 
     <p class="question">Please explain why you ranked them this way</p>
     <v-textarea
