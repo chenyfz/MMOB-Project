@@ -53,7 +53,7 @@ const onFinish = async () => {
 
     <v-combobox
       v-model="preferred"
-      :items="['Power bars (one the character)', 'Control', 'Balance bar (at the top of screen)']"
+      :items="['Power bars (on the character)', 'Control (without additional visuals)', 'Balance bar (at the top of screen)']"
       multiple
     />
 
