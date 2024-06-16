@@ -72,9 +72,9 @@ if (data) {
 
 const isMobile = window.innerWidth < 600
 
-const onClear = () => {
-  localStorage.removeItem('mmob-participant-info')
-}
+// const onClear = () => {
+//   localStorage.removeItem('mmob-participant-info')
+// }
 </script>
 
 <template>
@@ -93,7 +93,7 @@ const onClear = () => {
       <p>Please open this on a mobile device.</p>
     </div>
   </div>
-  <v-btn class="test-button" color="error" @click="onClear">test: clear local storage</v-btn>
+<!--  <v-btn class="test-button" color="error" @click="onClear">test: clear local storage</v-btn>-->
 </template>
 
 <style scoped lang="stylus">
