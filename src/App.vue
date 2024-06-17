@@ -45,7 +45,7 @@ if (data) {
             stageStore.stage = Stage.GAME
           }
           haveInGameData = true
-          getDeviceMotionPermission()
+          await getDeviceMotionPermission()
           break
         }
         const performanceIndex = participantData.value?.gamePerformanceData?.findIndex(item => item.version === version) ?? -1
@@ -53,7 +53,7 @@ if (data) {
           stageStore.stage = Stage.MID_SURVEY
           gameVersion.value = version as GameVersion
           haveInGameData = true
-          getDeviceMotionPermission()
+          await getDeviceMotionPermission()
           break
         }
       }
@@ -61,7 +61,7 @@ if (data) {
         const preIndex = participantData.value?.questionnaire?.findIndex(item => item.questionId === 'age') ?? -1
         if (preIndex !== -1) {
           stageStore.stage = Stage.GAME
-          getDeviceMotionPermission()
+          await getDeviceMotionPermission()
         }
       }
     }
@@ -71,7 +71,6 @@ if (data) {
     console.error(e)
     localStorage.removeItem('mmob-participant-info')
   }
-
 }
 
 const isMobile = window.innerWidth < 600
