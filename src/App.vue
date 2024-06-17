@@ -17,6 +17,7 @@ import {
 } from './store/game-version-store.ts'
 import ThanksPage from './pages/thanks-page.vue'
 import {GameVersion} from './types/game-version.ts'
+import {getDeviceMotionPermission} from './pages/device-motion-permission'
 
 const data = localStorage.getItem('mmob-participant-info')
 if (data) {
@@ -44,6 +45,7 @@ if (data) {
             stageStore.stage = Stage.GAME
           }
           haveInGameData = true
+          getDeviceMotionPermission()
           break
         }
         const performanceIndex = participantData.value?.gamePerformanceData?.findIndex(item => item.version === version) ?? -1
@@ -51,6 +53,7 @@ if (data) {
           stageStore.stage = Stage.MID_SURVEY
           gameVersion.value = version as GameVersion
           haveInGameData = true
+          getDeviceMotionPermission()
           break
         }
       }
@@ -58,6 +61,7 @@ if (data) {
         const preIndex = participantData.value?.questionnaire?.findIndex(item => item.questionId === 'age') ?? -1
         if (preIndex !== -1) {
           stageStore.stage = Stage.GAME
+          getDeviceMotionPermission()
         }
       }
     }
